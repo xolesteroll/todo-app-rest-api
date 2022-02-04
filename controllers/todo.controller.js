@@ -20,7 +20,9 @@ class TodoController {
                 todo
             }
         } catch (e) {
-            return res.status(400).json(e)
+            return {
+                error: e.message
+            }
         }
     }
 
@@ -41,7 +43,9 @@ class TodoController {
             }
 
         } catch (e) {
-            return res.status(400).json(e)
+            return {
+                error: e.message
+            }
         }
 
     }
@@ -59,7 +63,9 @@ class TodoController {
             return todo
 
         } catch (e) {
-            return res.status(400).json(e)
+            return {
+                error: e.message
+            }
         }
     }
 }

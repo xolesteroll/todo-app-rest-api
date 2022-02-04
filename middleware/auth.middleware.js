@@ -14,7 +14,8 @@ module.exports = async (req, res, next) => {
         req.user = decodedToken
         return next()
     } catch (e) {
-        console.log(e)
-        return res.status(401).json(e)
+        return {
+            error: e.message
+        }
     }
 }

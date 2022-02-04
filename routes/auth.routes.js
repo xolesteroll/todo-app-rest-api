@@ -77,7 +77,6 @@ router.post('/login',
                 }
             })
         } catch (e) {
-            console.log(e)
              return res.send(e)
         }
     })
@@ -99,7 +98,6 @@ router.get('/auth', authMiddleware,
                 }
             })
         } catch (e) {
-            console.log(e)
             return res.send({error: "Server Error"})
         }
     })
