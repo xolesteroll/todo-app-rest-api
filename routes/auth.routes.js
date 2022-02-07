@@ -82,7 +82,8 @@ router.post('/login',
             })
         } catch (e) {
             console.log("error somehow somewhere")
-            return res.send(e)
+            console.log(e)
+            return res.json(e)
         }
     })
 
