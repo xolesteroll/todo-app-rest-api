@@ -68,10 +68,10 @@ router.post('/login',
             if (!isPassValid) {
                 return res.status(400).json({error: "Entered password is incorrect"})
             }
-            const token = await jwt.sign({id: user.id}, process.env.JWT_SECRET_KEY, {expiresIn: "24h"})
-            console.log(token)
+            // const token = await jwt.sign({id: user.id}, process.env.JWT_SECRET_KEY, {expiresIn: "24h"})
+            // console.log(token)
             return res.json({
-                token,
+                // token,
                 user: {
                     id: user.id,
                     email: user.email,
