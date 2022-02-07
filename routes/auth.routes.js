@@ -58,7 +58,7 @@ router.post('/login',
     async (req, res) => {
         try {
             const {email, password} = req.body
-            console.log(req.body)
+            console.log(process.env.JWT_SECRET_KEY)
             const user = await User.findOne({email})
             console.log(user)
             if (!user) {
