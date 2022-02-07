@@ -102,4 +102,10 @@ router.get('/auth', authMiddleware,
         }
     })
 
+router.get("/test",
+    async (req,res) => {
+        console.log(req)
+        return res.status(200).json({test: "works"})
+    })
+
 module.exports = router
