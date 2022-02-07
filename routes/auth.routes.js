@@ -112,6 +112,7 @@ router.get('/test',
     async (req, res) => {
         try {
             console.log(req)
+            console.log("request initiated")
             return res.status(200).json({test: "works"})
         } catch (e) {
             return res.json(e)
