@@ -80,6 +80,7 @@ router.post('/login',
                 }
             })
         } catch (e) {
+            console.log("error somehow somewhere")
             return res.send(e)
         }
     })
