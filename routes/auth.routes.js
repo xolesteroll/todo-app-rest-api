@@ -77,7 +77,7 @@ router.post('/login',
                 }
             })
         } catch (e) {
-             return res.send(e)
+            return res.send(e)
         }
     })
 
@@ -102,10 +102,14 @@ router.get('/auth', authMiddleware,
         }
     })
 
-router.get("/test",
-    async (req,res) => {
-        console.log(req)
-        return res.status(200).json({test: "works"})
+router.get('/test',
+    async (req, res) => {
+        try {
+            console.log(req)
+            return res.status(200).json({test: "works"})
+        } catch (e) {
+            return res.json(e)
+        }
     })
 
 module.exports = router
