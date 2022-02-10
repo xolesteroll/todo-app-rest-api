@@ -7,15 +7,16 @@ module.exports = async (req, res, next) => {
     }
     try {
         const token = req.headers.authorization.split(' ')[1]
+        console.log(token)
         if(!token) {
             return res.status(401).json({error: 'Auth error'})
         }
         const decodedToken = await jwt.verify(token, secretKey)
+        console.log(decodedToken)
         req.user = decodedToken
         return next()
     } catch (e) {
-        return {
-            error: e.message
-        }
+        req.error = e.message
+        return next()
     }
 }

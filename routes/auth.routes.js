@@ -58,19 +58,15 @@ router.post('/login',
     async (req, res) => {
         try {
             const {email, password} = req.body
-            console.log(process.env.JWT_SECRET_KEY)
             const user = await User.findOne({email})
-            console.log(user)
             if (!user) {
                 return res.status(404).json({error: "User not found"})
             }
             const isPassValid = await bcrypt.compareSync(password, user.password)
-            console.log(isPassValid)
             if (!isPassValid) {
                 return res.status(400).json({error: "Entered password is incorrect"})
             }
             const token = await jwt.sign({id: user.id}, process.env.JWT_SECRET_KEY, {expiresIn: "24h"})
-            console.log(token)
             return res.json({
                 token,
                 user: {
@@ -81,8 +77,6 @@ router.post('/login',
                 }
             })
         } catch (e) {
-            console.log("error somehow somewhere")
-            console.log(e)
             return res.json(e)
         }
     })
@@ -91,18 +85,26 @@ router.post('/login',
 router.get('/auth', authMiddleware,
     async (req, res) => {
         try {
-            console.log(req.user.id)
-            const user = await User.findOne({_id: req.user.id})
-            const token = await jwt.sign({id: user.id}, process.env.JWT_SECRET_KEY, {expiresIn: "24h"})
-            return res.json({
-                token,
-                user: {
-                    id: user.id,
-                    email: user.email,
-                    firstName: user.firstName,
-                    lastName: user.lastName
-                }
-            })
+            console.log(req.error)
+            if(req.user) {
+                const user = await User.findOne({_id: req.user.id})
+                const token = await jwt.sign({id: user.id}, process.env.JWT_SECRET_KEY, {expiresIn: "24h"})
+                return res.json({
+                    token,
+                    user: {
+                        id: user.id,
+                        email: user.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName
+                    }
+                })
+            }
+            if(req.error) {
+                return res.json ({
+                    error: req.error
+                })
+            }
+
         } catch (e) {
             return res.send({error: "Server Error"})
         }
