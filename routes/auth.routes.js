@@ -14,12 +14,10 @@ router.post('/registration',
     async (req, res) => {
         try {
             const errors = validationResult(req)
-            console.log(errors)
             if (!errors.isEmpty()) {
                 return res.status(400).json({error: "Could not validate entered credentials"})
             }
 
-            console.log(req.body)
             const {email, password, firstName, lastName} = req.body
 
             const candidate = await User.findOne({email})
